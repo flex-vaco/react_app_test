@@ -1,0 +1,15 @@
+{
+  "public": "_site",
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/start-react-pro"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/start-react-pro/**",
+      "destination": "/start-react-pro/index.html"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+//
+// To make future updates easier consider overriding the global variables from _variables.bootstrap.scss and _variables.custom.scss for current demo in this file.
+// Note that this file is included first and variables defined in _variables.bootstrap.scss and _variables.custom.scss
+// are not accessible in this file but you can override any global variable as shown below:
+//
+
+// Theme colors
+// Primary
+$primary-green:       									#20D489;
+$primary-green-active:    								#19B674;
+$primary-green-light:    							    #E4FFF4;
+$primary-inverse:  									    #FFFFFF;
+$primary:       								        #181C32;
+$primary-active:    							        #1C2140;
+$primary-light:                                         #CDD4FC;
+
+// Success
+$success:       									#00B2FF;
+$success-active:    								#0098DA;
+$success-light:    									#F1FAFF;
+$success-inverse:  									#FFFFFF;
+
+// Info
+$info:       									    #5710B2;
+$info-active:    									#41058E;
+$info-light:    									#F6F1FC;
+$info-inverse:  									#FFFFFF;
+
+// Danger
+$danger:       									    #B1060F;
+$danger-active:    									#D9214E;
+$danger-light:    									#FFEFF3; 
+$danger-inverse:  									#FFFFFF;
+
+// Warning
+$warning-old:       									#FFC700;
+$warning-old-active:    								#F1BC00;
+$warning-old-light:    									#FFF8DD;
+$warning-old-inverse:  									#FFFFFF;
+
+$warning:       									#F48442;
+$warning-active:    								#F9B643;
+$warning-light:    									#F9B643;
+$warning-inverse:  									#FFFFFF;
+
+// Border Radiues
+$border-radius-sm:            						.3rem;
+$border-radius:               						.65rem;
+$border-radius-lg:            						.85rem;
+$border-radius-xl:                                  1.25rem;
+
+// Card Box Shadow
+$card-box-shadow:                                   0px 0px 20px 0px rgba(76,87,125,0.02);
