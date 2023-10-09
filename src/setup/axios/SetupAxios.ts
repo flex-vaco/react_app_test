@@ -1,15 +1,19 @@
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import * as auth from "../../app/modules/auth";
 
 export default function setupAxios(axios: any, store: any) {
+  const { dispatch } = store;
   axios.interceptors.request.use(
     (config: any) => {
-      //   const {
-      //     auth: { accessToken }
-      //   } = store.getState();
-      const local_user = localStorage.getItem("user");
-      const user = JSON.parse(local_user || '{}');
-      const accessToken = user?.auth?.accessToken
-
+      const {
+        auth: { accessToken },
+      } = store.getState();
+      // const local_user = localStorage.getItem("user");
+      // const user = JSON.parse(local_user || "{}");
+      // const accessToken = user?.auth?.accessToken
+      console.log("Interceptors");
+      console.log(accessToken);
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
         config.xhrFields = true;
@@ -26,11 +30,11 @@ export default function setupAxios(axios: any, store: any) {
   // Response interceptor for API calls
   axios.interceptors.response.use(
     (response: any) => {
-      return response
+      return response;
     },
     async (error: any) => {
       const errCode = error.response.status;
-      if ( errCode == "401") {
+      if (errCode == "401") {
         let errTitle = "AUTHENTICATION FAILED!";
         let errMessage = "Try Logging-in again.";
 
@@ -38,12 +42,14 @@ export default function setupAxios(axios: any, store: any) {
           title: errTitle,
           html: `${error} <br /> ${errMessage}`,
           confirmButtonColor: "#0e4372",
-          showConfirmButton: true
+          showConfirmButton: true,
         });
         if (isConfirmed) {
-          localStorage.removeItem("user");
-          window.location.reload();
-        };
+          // localStorage.removeItem("user");
+          dispatch(auth.actions.logout());
+          document.location.reload();
+          //window.location.reload();
+        }
       }
     }
   );

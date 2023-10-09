@@ -25,6 +25,7 @@ export interface UserModel {
   communication?: UserCommunicationModel;
   address?: UserAddressModel;
   socialNetworks?: UserSocialNetworksModel;
+  typeid?: number;
 }
 
 // export interface UserModel {

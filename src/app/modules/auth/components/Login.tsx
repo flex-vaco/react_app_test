@@ -36,9 +36,9 @@ export function Login() {
   // const goToHomePage = ()=>{
   //   history.push("/calypso");
   //   document.location.reload()
-  // } 
+  // }
   const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -49,11 +49,13 @@ export function Login() {
           .then((resp) => {
             setLoading(false);
             // console.log("Login:",resp.data.user)
-            localStorage.setItem("user", JSON.stringify(resp.data.user))
+             localStorage.setItem("user", JSON.stringify(resp.data.user))
             // console.log("Login 2:", localStorage.getItem("user"))
-            history.push("/")
-            window.location.reload()
-            //dispatch(auth.actions.login(auth.accessToken));
+            // history.push("/")
+            // window.location.reload()
+            dispatch(auth.actions.fulfillUser(resp.data.user));
+            history.push("/");
+            document.location.reload();
           })
           .catch(() => {
             setLoading(false);

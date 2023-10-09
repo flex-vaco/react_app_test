@@ -7,7 +7,7 @@ import { getUserByToken } from "./AuthCRUD";
 
 export interface ActionWithPayload<T> extends Action {
   payload?: T;
-} 
+}
 
 export const actionTypes = {
   Login: "[Login] Action",
@@ -30,7 +30,10 @@ export interface IAuthState {
 
 export const reducer = persistReducer(
   { storage, key: "v100-demo1-auth", whitelist: ["user", "accessToken"] },
-  (state: IAuthState = initialAuthState, action: ActionWithPayload<IAuthState>) => {
+  (
+    state: IAuthState = initialAuthState,
+    action: ActionWithPayload<IAuthState>
+  ) => {
     switch (action.type) {
       case actionTypes.Login: {
         const accessToken = action.payload?.accessToken;
@@ -43,7 +46,7 @@ export const reducer = persistReducer(
       }
 
       case actionTypes.Logout: {
-        return initialAuthState;
+        return { accessToken: undefined, user: undefined };
       }
 
       case actionTypes.UserRequested: {
@@ -52,12 +55,12 @@ export const reducer = persistReducer(
 
       case actionTypes.UserLoaded: {
         const user = action.payload?.user;
-        return { ...state, user };
+        return { ...state, user, accessToken: user?.auth?.accessToken };
       }
 
       case actionTypes.SetUser: {
         const user = action.payload?.user;
-        return { ...state, user };
+        return { ...state, user, accessToken: user?.auth?.accessToken };
       }
 
       default:
@@ -67,17 +70,26 @@ export const reducer = persistReducer(
 );
 
 export const actions = {
-  login: (accessToken: string) => ({ type: actionTypes.Login, payload: { accessToken } }),
+  login: (accessToken: string) => ({
+    type: actionTypes.Login,
+    payload: { accessToken },
+  }),
   register: (accessToken: string) => ({
     type: actionTypes.Register,
     payload: { accessToken },
   }),
   logout: () => ({ type: actionTypes.Logout }),
   requestUser: () => ({
-    type: actionTypes.UserRequested
+    type: actionTypes.UserRequested,
   }),
-  fulfillUser: (user: UserModel) => ({ type: actionTypes.UserLoaded, payload: { user } }),
-  setUser: (user: UserModel) => ({ type: actionTypes.SetUser, payload: { user } }),
+  fulfillUser: (user: UserModel) => ({
+    type: actionTypes.UserLoaded,
+    payload: { user },
+  }),
+  setUser: (user: UserModel) => ({
+    type: actionTypes.SetUser,
+    payload: { user },
+  }),
 };
 
 export function* saga() {
