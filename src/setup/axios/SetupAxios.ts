@@ -12,8 +12,7 @@ export default function setupAxios(axios: any, store: any) {
       // const local_user = localStorage.getItem("user");
       // const user = JSON.parse(local_user || "{}");
       // const accessToken = user?.auth?.accessToken
-      console.log("Interceptors");
-      console.log(accessToken);
+      
       if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
         config.xhrFields = true;
